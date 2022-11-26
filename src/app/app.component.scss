@@ -1,0 +1,33 @@
+.scroll {
+    overflow-x: hidden;
+    // display: flex;
+    // flex-direction: column;
+    // overflow: auto;
+    // flex: none;
+    // scroll-snap-type: y mandatory;
+}
+
+.container {
+    scroll-snap-align: start;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #242934;
+}
+
+.titulo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 2.4rem;
+    margin: 1rem 0 1rem 0;
+}
+
+.containerDuasTabelas {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
