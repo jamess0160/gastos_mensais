@@ -1,0 +1,53 @@
+$tamanhoLinha: 1.75rem;
+
+.container-tabela {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+.tabela {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    width: 100%;
+    height: calc($tamanhoLinha * 12.4);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.tabela>tr>td {
+    border-bottom: 1px solid #000000;
+    display: flex;
+    justify-content: space-around;
+    height: 1.75rem;
+}
+
+.tabela>tr>td>div {
+    width: 50%;
+    height: $tamanhoLinha;
+    display: flex;
+    align-items: center;
+}
+
+.tabela>tr>td>div:first-child {
+    border-right: 1px solid #000000;
+    padding-left: 0.5rem;
+}
+
+.tabela>tr>td>div:last-child {
+    border-right: 0;
+    justify-content: end;
+    padding-right: 0.5rem;
+}
+
+.tabela>tr:last-child>td {
+    border-bottom: 0px
+}
+
+.total {
+    font-size: 1.5rem;
+}
