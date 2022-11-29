@@ -1,5 +1,5 @@
 <div class="container-tabela" [ngStyle]="styles">
-    <table class="tabela" [ngStyle]="scroll ? {overflow: 'hidden'} : {overflow: 'scroll'}">
+    <table class="tabela" [ngStyle]="scroll ? {overflowY: 'scroll'} : {overflow: 'hidden'}">
         <tr *ngFor="let item of registros">
             <td>
                 <div>{{item.descricao}}</div>
