@@ -30,12 +30,4 @@ export class AppComponent {
 		width: "30vw",
 		height: "calc(75vh - 3rem)"
 	}
-
-	dadosTotal: registro[] = this.pegarRegistros(1)
-
-	pegarRegistros(tipo: number): registro[] {
-		let registrosSelecionados: registro[] = []
-
-		return registrosSelecionados
-	}
 }

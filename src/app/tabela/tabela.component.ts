@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 type registro = {
 	descricao: string,
@@ -12,17 +13,28 @@ type registro = {
 	styleUrls: ['./tabela.component.scss']
 })
 
-export class TabelaComponent {
+export class TabelaComponent implements OnInit {
+
+	constructor(private api: ApiService) { }
 
 	@Input() styles: any
-	@Input() dados: registro[] = []
+	@Input() tipo: number = 0
+
+	registros: registro[] = this.arrumarRegistros([])
+	scroll: boolean = false
+
+	total: number = 0
+
+	ngOnInit(): void {
+		this.api.pegarGastos(this.tipo).forEach((dados: registro[]) => {
+			this.registros = dados.length > 12 ? dados : this.arrumarRegistros(dados)
+			this.scroll = dados.length < 50
+			let precos: number[] = this.registros.map((item) => item.preco)
+			this.total = precos.reduce((anterior, atual) => anterior + atual)
+		})
+	}
 
 
-	registros = this.dados.length > 12 ? this.dados : this.arrumarRegistros(this.dados)
-	scroll = this.dados.length < 50
-
-	precos: number[] = this.registros.map((item) => item.preco)
-	total: number = this.precos.reduce((anterior, atual) => anterior + atual)
 
 	parseFloat(numero: number): String {
 		return parseFloat(numero.toString()).toFixed(2)

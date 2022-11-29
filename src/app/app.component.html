@@ -1,27 +1,28 @@
 <div class="scroll">
 	<div class="container">
 		<div class="titulo">Total de gastos</div>
-		<app-tabela [dados]="dadosTotal" [styles]="stylesPrimeiraTabela"></app-tabela>
+		<app-tabela [tipo]="1" [styles]="stylesPrimeiraTabela"></app-tabela>
 	</div>
 	<div class="container">
 		<div class="titulo">Compras Gerais</div>
 		<div class="containerDuasTabelas">
-			<app-tabela [dados]="[]" [styles]="stylesTabelasInter"></app-tabela>
-			<app-tabela [dados]="[]" [styles]="stylesTabelasNubank"></app-tabela>
+			<app-tabela [tipo]="2" [styles]="stylesTabelasInter"></app-tabela>
+			<app-tabela [tipo]="3" [styles]="stylesTabelasNubank"></app-tabela>
 		</div>
 	</div>
 	<div class="container">
 		<div class="titulo">Transportes</div>
 		<div class="containerDuasTabelas">
-			<app-tabela [dados]="[]" [styles]="stylesTabelasInter"></app-tabela>
-			<app-tabela [dados]="[]" [styles]="stylesTabelasNubank"></app-tabela>
+			<app-tabela [tipo]="4" [styles]="stylesTabelasInter"></app-tabela>
+			<app-tabela [tipo]="5" [styles]="stylesTabelasNubank"></app-tabela>
 		</div>
 	</div>
 	<div class="container">
 		<div class="titulo">Alimentação</div>
 		<div class="containerDuasTabelas">
-			<app-tabela [dados]="[]" [styles]="stylesTabelasInter"></app-tabela>
-			<app-tabela [dados]="[]" [styles]="stylesTabelasNubank"></app-tabela>
+			<app-tabela [tipo]="6" [styles]="stylesTabelasInter"></app-tabela>
+			<app-tabela [tipo]="7" [styles]="stylesTabelasNubank"></app-tabela>
 		</div>
 	</div>
 </div>
+<app-fomulario-criacao></app-fomulario-criacao>
