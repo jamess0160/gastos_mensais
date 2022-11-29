@@ -1,0 +1,54 @@
+<dialog id="dialog" class="dialog">
+    <div id="inicio">
+        <div class="titulo">Menu de ações</div>
+
+        <button data-chave="#novo" type="button">Novo Gasto</button>
+        <button data-chave="#editar" type="button">Editar Gasto</button>
+        <button data-chave="#deletar" type="button">Deletar Gasto</button>
+    </div>
+    <div id="novo">
+        <div class="titulo">
+            <div>&lt;</div>
+            <div>Novo Gasto</div>
+        </div>
+        <form>
+            <input type="number" placeholder="Dia do gasto">
+            <input type="text" placeholder="Descrição">
+            <input type="number" placeholder="Valor">
+            <select>
+                <option selected disabled value="0">Selecione o destino</option>
+                <option value="1">Geral</option>
+                <option value="2">Inter Geral</option>
+                <option value="3">Nubank Geral</option>
+                <option value="4">Inter Transportes</option>
+                <option value="5">Nubank Transportes</option>
+                <option value="6">Inter Alimentação</option>
+                <option value="7">Nubank Alimentação</option>
+            </select>
+        </form>
+        <button data-tipo="create" class="enviar">Enviar</button>
+    </div>
+    <div id="editar">
+        <div class="titulo">Editar Gasto</div>
+        <form>
+            <input type="number" placeholder="Data">
+            <input type="text" placeholder="Descrição">
+            <input type="number" placeholder="Valor">
+            <select>
+                <option selected disabled value="0">Selecione o destino</option>
+                <option value="1">Geral</option>
+                <option value="2">Inter Geral</option>
+                <option value="3">Nubank Geral</option>
+                <option value="4">Inter Transportes</option>
+                <option value="5">Nubank Transportes</option>
+                <option value="6">Inter Alimentação</option>
+                <option value="7">Nubank Alimentação</option>
+            </select>
+        </form>
+        <button data-tipo="update" class="enviar">Enviar</button>
+    </div>
+    <div id="deletar">
+        <div class="titulo">Deletar Gasto</div>
+
+    </div>
+</dialog>
