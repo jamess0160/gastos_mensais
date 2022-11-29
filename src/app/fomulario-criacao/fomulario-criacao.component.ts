@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 @Component({
 	selector: 'app-fomulario-criacao',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./fomulario-criacao.component.scss']
 })
 export class FomularioCriacaoComponent implements OnInit {
+
+	constructor(private api: ApiService) { }
+
 	ngOnInit(): void {
 		let dialog: any = document.querySelector("#dialog")
 		dialog.showModal()
@@ -22,5 +26,18 @@ export class FomularioCriacaoComponent implements OnInit {
 				document.querySelector(chave).style.display = "flex"
 			})
 		})
+
+		document.querySelectorAll(".enviar").forEach((item: any) => {
+			let { tipo } = item.dataset
+			if (tipo == "delete") {
+				return this.configurarDelete(item)
+			}
+
+			
+		})
+	}
+
+	configurarDelete(item: any): void {
+
 	}
 }
