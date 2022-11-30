@@ -1,19 +1,24 @@
 <dialog id="dialog" class="dialog">
     <div id="inicio">
+        <div (click)="this.sair()" class="voltar">
+            ↩
+        </div>
         <div class="titulo">Menu de ações</div>
 
-        <button data-chave="#novo" type="button">Novo Gasto</button>
-        <button data-chave="#editar" type="button">Editar Gasto</button>
-        <button data-chave="#deletar" type="button">Deletar Gasto</button>
+        <button (click)="this.navegar('#novo')" type="button">Novo Gasto</button>
+        <button (click)="this.navegar('#editar')" type="button">Editar Gasto</button>
+        <button (click)="this.navegar('#deletar')" type="button">Deletar Gasto</button>
     </div>
     <div id="novo">
-        <div>&lt;</div>
-        <div class="titulo">Novo Gasto</div>
-        <form>
-            <input type="number" placeholder="Dia do gasto">
-            <input type="text" placeholder="Descrição">
-            <input type="number" placeholder="Valor">
-            <select>
+        <div (click)="this.voltar($event)" class="voltar">
+            ↩
+        </div>
+        <div class="titulo">Novo Gasto </div>
+        <form (submit)="this.criar($event)">
+            <input name="data" (value)="teste" type="number" placeholder="Dia do gasto">
+            <input name="gasto" type="text" placeholder="Descrição">
+            <input name="valor" type="number" placeholder="Valor">
+            <select name="tipo" title="Destino">
                 <option selected disabled value="0">Selecione o destino</option>
                 <option value="1">Geral</option>
                 <option value="2">Inter Geral</option>
@@ -23,10 +28,13 @@
                 <option value="6">Inter Alimentação</option>
                 <option value="7">Nubank Alimentação</option>
             </select>
+            <button type="submit" class="enviar">Enviar</button>
         </form>
-        <button data-tipo="create" class="enviar">Enviar</button>
     </div>
     <div id="editar">
+        <div (click)="this.voltar($event)" class="voltar">
+            ↩
+        </div>
         <div class="titulo">Editar Gasto</div>
         <form>
             <input type="number" placeholder="Data">
@@ -43,10 +51,14 @@
                 <option value="7">Nubank Alimentação</option>
             </select>
         </form>
-        <button data-tipo="update" class="enviar">Enviar</button>
+        <button (click)="this.editar()" class="enviar">Enviar</button>
     </div>
     <div id="deletar">
+        <div (click)="this.voltar($event)" class="voltar">
+            ↩
+        </div>
         <div class="titulo">Deletar Gasto</div>
+        <button (click)="this.deletar()" class="enviar">Deletar</button>
 
     </div>
 </dialog>
