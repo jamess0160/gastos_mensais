@@ -42,8 +42,8 @@ export class AppComponent implements OnInit {
 	async pegarGastos(): Promise<dadosTabelas> {
 		let dados = await this.api.pegarGastos()
 		let dadosGerais = [
-			...this.juntarParaGeral(dados),
-			...dados.filter((item) => item.tipo == 1)
+			...dados.filter((item) => item.tipo == 1),
+			...this.juntarParaGeral(dados)
 		]
 		return {
 			geral: dadosGerais,
@@ -61,27 +61,27 @@ export class AppComponent implements OnInit {
 
 		return [
 			{
-				descricao: "0 - Inter Gerais",
+				descricao: "Inter Gerais",
 				preco: pegarPreco(2),
 				tipo: 1
 			},
 			{
-				descricao: "0 - Nubank Gerais",
+				descricao: "Nubank Gerais",
 				preco: pegarPreco(3),
 				tipo: 1
 			},
 			{
-				descricao: "0 - Inter Transporte",
+				descricao: "Inter Transporte",
 				preco: pegarPreco(4),
 				tipo: 1
 			},
 			{
-				descricao: "0 - Nubank Transporte",
+				descricao: "Nubank Transporte",
 				preco: pegarPreco(5),
 				tipo: 1
 			},
 			{
-				descricao: "0 - Inter Alimentação",
+				descricao: "Inter Alimentação",
 				preco: pegarPreco(6),
 				tipo: 1
 			},
