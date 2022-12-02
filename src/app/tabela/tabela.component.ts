@@ -15,11 +15,14 @@ export class TabelaComponent implements OnInit {
 
 	@Input() styles: any
 	@Input() dados: registro[] | undefined = []
+	@Input() tipo: number | undefined = 0
 
 	registros: registro[] = this.arrumarRegistros([])
 	scroll: boolean = false
 
-	total: string = ""
+	totalFloat: GLfloat = 0
+	totalVisual: string = ""
+	totalSalario: string = ""
 
 	idSelecionado = memoria.getMemoria("idSelecionado")
 
@@ -39,7 +42,9 @@ export class TabelaComponent implements OnInit {
 		this.registros = this.dados.length > 12 ? this.dados : this.arrumarRegistros(this.dados)
 		this.scroll = this.dados.length > 12
 		let precos = this.registros.map((item) => item.preco)
-		this.total = parseFloat(precos.reduce((anterior, atual) => anterior + atual).toString()).toFixed(2)
+		this.totalFloat = parseFloat(precos.reduce((anterior, atual) => anterior + atual).toString())
+		this.totalSalario = (2723.22 - this.totalFloat).toFixed(2)
+		this.totalVisual = this.totalFloat.toFixed(2)
 	}
 
 	arrumarRegistros(data: registro[]): registro[] {

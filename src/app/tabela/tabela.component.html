@@ -8,5 +8,6 @@
             </td>
         </tr>
     </table>
-    <div class="total">R$ {{total}}</div>
+    <div class="total">Total de gastos R$ {{totalVisual}}</div>
+    <div [ngStyle]="tipo == 1 ? {} : {display: 'none'}" visible="false" class="total">Restante do Salário: R$ {{totalSalario}}</div>
 </div>
