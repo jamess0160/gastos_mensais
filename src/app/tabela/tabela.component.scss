@@ -26,6 +26,10 @@ $tamanhoLinha: 1.75rem;
     height: 1.75rem;
 }
 
+.selecionada{
+    background-color: #ffffff2a;
+}
+
 .tabela>tr>td>div {
     width: 50%;
     height: $tamanhoLinha;

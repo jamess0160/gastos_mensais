@@ -93,4 +93,7 @@ form {
 
 #deletar {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }

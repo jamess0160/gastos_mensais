@@ -10,11 +10,32 @@ export class ApiService {
 
 	constructor(private http: HttpClient) { }
 
-	public pegarGastos(tipo: number): Observable<any> {
-		return this.http.get(`http://localhost:3000/gastos/${tipo}`)
+	public pegarGastos(): Promise<registro[]> {
+		return new Promise((resolve) => {
+			this.http.get(`http://localhost:3000/gastos`).forEach((item: any) => {
+				resolve(item)
+			})
+		})
+	}
+
+	public pegarItem(id: string): Promise<registro> {
+		return new Promise((resolve) => {
+			this.http.get(`http://localhost:3000/gastos/unico/${id}`).forEach(([item]: any) => {
+				resolve(item)
+			})
+		})
 	}
 
 	public criarGasto(body: registro): Observable<any> {
 		return this.http.post(`http://localhost:3000/gastos`, body)
 	}
+
+	public atualizarGasto(id: number, body: registro): Observable<any> {
+		return this.http.put(`http://localhost:3000/gastos/${id}`, body)
+	}
+
+	public deletarGasto(id: number): Observable<any> {
+		return this.http.delete(`http://localhost:3000/gastos/${id}`)
+	}
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { registro } from 'src/tipos';
+import { formRegistro, registro } from 'src/tipos';
 import { ApiService } from '../api/api.service';
+import memoria from '../memoria';
 
 var classe: any;
 
@@ -12,7 +13,7 @@ var classe: any;
 
 export class FomularioCriacaoComponent implements OnInit {
 
-	teste = 1
+	dadosEditar: formRegistro | undefined = undefined
 
 	constructor(private api: ApiService) { }
 
@@ -36,10 +37,6 @@ export class FomularioCriacaoComponent implements OnInit {
 		document.documentElement.style.overflow = 'hidden';
 	}
 
-	configurarDelete(item: any): void {
-
-	}
-
 	sair() {
 		let dialog: any = document.querySelector("#dialog")
 		dialog.close()
@@ -56,6 +53,25 @@ export class FomularioCriacaoComponent implements OnInit {
 		inicio.style.display = 'none'
 		let destino: any = document.querySelector(chave)
 		destino.style.display = "flex"
+
+		if (chave == "#editar") {
+			this.carregarEdicao()
+		}
+	}
+
+	async carregarEdicao() {
+		let id = memoria.getMemoria("idSelecionado")
+		if (!id) {
+			return
+		}
+		let item = await this.api.pegarItem(id)
+		let [data, descricao] = item.descricao.split(" - ")
+		this.dadosEditar = {
+			data: parseInt(data),
+			descricao: descricao,
+			preco: item.preco,
+			tipo: item.tipo
+		}
 	}
 
 	voltar(event: Event) {
@@ -85,11 +101,27 @@ export class FomularioCriacaoComponent implements OnInit {
 		this.sair()
 	}
 
-	editar() {
+	editar(event: SubmitEvent) {
+		event.preventDefault()
+		let [formulario]: any = event.composedPath()
 
+		let formData = new FormData(formulario)
+
+		let id: number = memoria.getMemoria("idSelecionado")
+		let valor: number = parseFloat(formData.get('valor')?.toString() || "0")
+		let tipo: number = parseInt(formData.get('tipo')?.toString() || "0")
+
+		this.api.atualizarGasto(id, {
+			descricao: `${formData.get('data')} - ${formData.get('gasto')}`,
+			preco: valor,
+			tipo: tipo
+		}).subscribe()
+		this.sair()
 	}
 
 	deletar() {
-
+		let id: number = memoria.getMemoria("idSelecionado")
+		this.api.deletarGasto(id).subscribe()
+		this.sair()
 	}
 }

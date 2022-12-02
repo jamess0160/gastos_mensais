@@ -1,11 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
-
-type registro = {
-	descricao: string,
-	preco: GLfloat,
-	tipo: number
-}
+import { registro } from 'src/tipos';
+import memoria from '../memoria';
 
 @Component({
 	selector: 'app-tabela',
@@ -18,26 +14,32 @@ export class TabelaComponent implements OnInit {
 	constructor(private api: ApiService) { }
 
 	@Input() styles: any
-	@Input() tipo: number = 0
+	@Input() dados: registro[] | undefined = []
 
 	registros: registro[] = this.arrumarRegistros([])
 	scroll: boolean = false
 
-	total: number = 0
+	total: string = ""
+
+	idSelecionado = memoria.getMemoria("idSelecionado")
 
 	ngOnInit(): void {
-		this.api.pegarGastos(this.tipo).forEach((dados: registro[]) => {
-			this.registros = dados.length > 12 ? dados : this.arrumarRegistros(dados)
-			this.scroll = dados.length < 50
-			let precos: number[] = this.registros.map((item) => item.preco)
-			this.total = precos.reduce((anterior, atual) => anterior + atual)
-		})
+		setTimeout(() => {
+			this.carregarDados()
+			setInterval(this.carregarDados.bind(this), 1000)
+		}, 100)
 	}
 
+	carregarDados() {
+		if (!this.dados) {
+			return
+		}
 
-
-	parseFloat(numero: number): String {
-		return parseFloat(numero.toString()).toFixed(2)
+		this.idSelecionado = memoria.getMemoria("idSelecionado")
+		this.registros = this.dados.length > 12 ? this.dados : this.arrumarRegistros(this.dados)
+		this.scroll = this.dados.length > 12
+		let precos = this.registros.map((item) => item.preco)
+		this.total = parseFloat(precos.reduce((anterior, atual) => anterior + atual).toString()).toFixed(2)
 	}
 
 	arrumarRegistros(data: registro[]): registro[] {
@@ -47,12 +49,38 @@ export class TabelaComponent implements OnInit {
 				novosDados.push(data[index])
 				continue
 			}
+
 			novosDados.push({
+				id: 0,
 				descricao: "",
 				preco: 0,
 				tipo: 0
 			})
 		}
 		return novosDados
+	}
+
+	clicarLinha(evento: any) {
+		let linha: HTMLTableRowElement = evento.path[2]
+
+		let idAtual = linha.dataset["id"]
+		if (idAtual == "0") {
+			return
+		}
+
+		if (linha.classList.contains("selecionada")) {
+			linha.classList.remove("selecionada")
+			memoria.setMemoria("idSelecionado", undefined)
+			return
+		}
+
+		linha.classList.add("selecionada")
+		let idAnterior = memoria.getMemoria("idSelecionado")
+
+		if (idAnterior && idAnterior !== idAtual) {
+			let linhaAnterior: HTMLTableRowElement | null = document.querySelector(`[data-id="${idAnterior}"]`)
+			linhaAnterior?.classList.remove("selecionada")
+		}
+		memoria.setMemoria("idSelecionado", idAtual)
 	}
 }
