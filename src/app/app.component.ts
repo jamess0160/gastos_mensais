@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
 				tipo: 1
 			},
 			{
-				descricao: "0 - Nubank Alimentação",
+				descricao: "Nubank Alimentação",
 				preco: pegarPreco(7),
 				tipo: 1
 			}
