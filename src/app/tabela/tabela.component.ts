@@ -33,7 +33,7 @@ export class TabelaComponent implements OnInit {
 		}, 100)
 	}
 
-	carregarDados() {
+	async carregarDados() {
 		if (!this.dados) {
 			return
 		}
@@ -48,7 +48,12 @@ export class TabelaComponent implements OnInit {
 			return item.preco
 		})
 		this.totalFloat = parseFloat(precos.reduce((anterior, atual) => anterior + atual).toString())
-		this.totalSalario = (2723.22 - this.totalFloat).toFixed(2)
+		
+		let entradas = await this.api.pegarEntradas()
+		let valorEntradas = entradas.map((item) => item.valor)
+		let somaEntradas = valorEntradas.reduce((a, b) => a + b)
+
+		this.totalSalario = (somaEntradas - this.totalFloat).toFixed(2)
 		this.totalVisual = this.totalFloat.toFixed(2)
 	}
 
