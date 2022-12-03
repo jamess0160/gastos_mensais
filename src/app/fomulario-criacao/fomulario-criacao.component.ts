@@ -28,7 +28,7 @@ export class FomularioCriacaoComponent implements OnInit {
 
 	monitorarESC(event: any) {
 		let dialog: any = document.querySelector("#dialog")
-		if (event.key !== "Escape") {
+		if (event.key !== "Escape" && event.key !== "Enter") {
 			return
 		}
 		if (dialog.open) {
@@ -66,9 +66,14 @@ export class FomularioCriacaoComponent implements OnInit {
 			return
 		}
 		let item = await this.api.pegarItem(id)
-		let [data, descricao] = item.descricao.split(" - ")
+		if (item.descricao.includes("-")) {
+			var [data, descricao] = item.descricao.split(" - ")
+		} else {
+			var descricao = item.descricao
+		}
+
 		this.formularioEditar = {
-			data: parseInt(data),
+			data: parseInt(data) || undefined,
 			descricao: descricao,
 			preco: item.preco,
 			tipo: item.tipo
