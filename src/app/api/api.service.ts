@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { registro } from 'src/tipos';
+import { registro, entradas } from 'src/tipos';
+import axios from 'axios';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,9 +11,14 @@ export class ApiService {
 
 	constructor(private http: HttpClient) { }
 
+	public async pegarEntradas(): Promise<entradas[]> {
+		let { data: entradas } = await axios.get("http://localhost:3000/entradas")
+		return entradas
+	}
+
 	public pegarGastos(): Promise<registro[]> {
 		return new Promise((resolve) => {
-			this.http.get(`http://localhost:3000/gastos`).forEach((item: any) => {
+			this.http.get("http://localhost:3000/gastos").forEach((item: any) => {
 				resolve(item)
 			})
 		})

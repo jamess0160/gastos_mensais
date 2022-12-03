@@ -21,3 +21,9 @@ export type dadosTabelas = {
     interAlimentacao: registro[],
     nubankAlimentacao: registro[]
 }
+
+export type entradas = {
+    id: number,
+    chave: string,
+    valor: number
+}
