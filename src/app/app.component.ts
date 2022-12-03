@@ -57,8 +57,6 @@ export class AppComponent implements OnInit {
 	}
 
 	juntarParaGeral(dados: registro[]): registro[] {
-		let precos = dados.map((item) => item.preco)
-
 		return [
 			{
 				descricao: "Inter Gerais",
@@ -94,12 +92,15 @@ export class AppComponent implements OnInit {
 
 		function pegarPreco(tipo: number): GLfloat {
 			let total = 0
-			for (const index in precos) {
-				let valor = precos[index]
-				if (dados[index].tipo == tipo) {
-					total += valor
+			dados.forEach((item) => {
+				if (item.tipo !== tipo) {
+					return
 				}
-			}
+				if (item.descricao.includes("*")) {
+					return
+				}
+				total += item.preco
+			})
 			let totalFixed = total.toFixed(2)
 			return parseFloat(totalFixed)
 		}

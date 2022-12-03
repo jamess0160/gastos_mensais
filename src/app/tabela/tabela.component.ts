@@ -41,7 +41,12 @@ export class TabelaComponent implements OnInit {
 		this.idSelecionado = memoria.getMemoria("idSelecionado")
 		this.registros = this.dados.length > 12 ? this.dados : this.arrumarRegistros(this.dados)
 		this.scroll = this.dados.length > 12
-		let precos = this.registros.map((item) => item.preco)
+		let precos = this.registros.map((item) => {
+			if (item.descricao.includes("*")) {
+				return 0
+			}
+			return item.preco
+		})
 		this.totalFloat = parseFloat(precos.reduce((anterior, atual) => anterior + atual).toString())
 		this.totalSalario = (2723.22 - this.totalFloat).toFixed(2)
 		this.totalVisual = this.totalFloat.toFixed(2)
@@ -69,7 +74,7 @@ export class TabelaComponent implements OnInit {
 		let linha: HTMLTableRowElement = evento.path[2]
 
 		let idAtual = linha.dataset["id"]
-		if (idAtual == "0") {
+		if (!idAtual) {
 			return
 		}
 
