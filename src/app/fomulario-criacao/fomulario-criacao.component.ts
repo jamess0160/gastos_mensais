@@ -98,11 +98,11 @@ export class FomularioCriacaoComponent implements OnInit {
 		}
 
 		this.api.criarGasto({
-			descricao: data ? `${data} - ${descricao}` : descricao || "",
+			descricao: data ? `${(`00${data}`).slice(-2)} - ${descricao}` : descricao || "",
 			preco: preco,
 			tipo: tipo
 		}).subscribe()
-		this.formularioCriar = {}
+		this.formularioCriar = { tipo: 0 }
 	}
 
 	editar() {
@@ -118,7 +118,7 @@ export class FomularioCriacaoComponent implements OnInit {
 		}
 
 		this.api.atualizarGasto(id, {
-			descricao: data ? `${data} - ${descricao}` : descricao || "",
+			descricao: data ? `${(`00${data}`).slice(-2)} - ${descricao}` : descricao || "",
 			preco: preco,
 			tipo: tipo
 		}).subscribe()
