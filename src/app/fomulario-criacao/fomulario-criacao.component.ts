@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { formRegistro, registro } from 'src/tipos';
+import { formRegistro } from 'src/tipos';
 import { ApiService } from '../api/api.service';
 import memoria from '../memoria';
 
@@ -13,7 +13,8 @@ var classe: any;
 
 export class FomularioCriacaoComponent implements OnInit {
 
-	dadosEditar: formRegistro | undefined = undefined
+	formularioCriar: formRegistro = { tipo: 0 }
+	formularioEditar: formRegistro = { tipo: 0 }
 
 	constructor(private api: ApiService) { }
 
@@ -66,7 +67,7 @@ export class FomularioCriacaoComponent implements OnInit {
 		}
 		let item = await this.api.pegarItem(id)
 		let [data, descricao] = item.descricao.split(" - ")
-		this.dadosEditar = {
+		this.formularioEditar = {
 			data: parseInt(data),
 			descricao: descricao,
 			preco: item.preco,
@@ -84,43 +85,47 @@ export class FomularioCriacaoComponent implements OnInit {
 		pai.style.display = 'none'
 	}
 
-	criar(event: SubmitEvent) {
-		event.preventDefault()
-		let [formulario]: any = event.composedPath()
+	criar() {
+		let { data, descricao, preco, tipo } = this.formularioCriar
 
-		let formData = new FormData(formulario)
-
-		let valor: number = parseFloat(formData.get('valor')?.toString() || "0")
-		let tipo: number = parseInt(formData.get('tipo')?.toString() || "0")
+		if (!descricao || !preco || !tipo) {
+			return alert("Preencha os campos para continuar")
+		}
 
 		this.api.criarGasto({
-			descricao: `${formData.get('data')} - ${formData.get('gasto')}`,
-			preco: valor,
+			descricao: data ? `${data} - ${descricao}` : descricao || "",
+			preco: preco,
 			tipo: tipo
 		}).subscribe()
-		this.sair()
+		this.formularioCriar = {}
 	}
 
-	editar(event: SubmitEvent) {
-		event.preventDefault()
-		let [formulario]: any = event.composedPath()
-
-		let formData = new FormData(formulario)
-
+	editar() {
 		let id: number = memoria.getMemoria("idSelecionado")
-		let valor: number = parseFloat(formData.get('valor')?.toString() || "0")
-		let tipo: number = parseInt(formData.get('tipo')?.toString() || "0")
+		if (!id) {
+			return alert("Nenhuma linha selecionada")
+		}
+
+		let { data, descricao, preco, tipo } = this.formularioEditar
+
+		if (!descricao || !preco || !tipo) {
+			return alert("Preencha os campos para continuar")
+		}
 
 		this.api.atualizarGasto(id, {
-			descricao: `${formData.get('data')} - ${formData.get('gasto')}`,
-			preco: valor,
+			descricao: data ? `${data} - ${descricao}` : descricao || "",
+			preco: preco,
 			tipo: tipo
 		}).subscribe()
+		this.formularioEditar = {}
 		this.sair()
 	}
 
 	deletar() {
 		let id: number = memoria.getMemoria("idSelecionado")
+		if (!id) {
+			return alert("Nenhuma linha selecionada")
+		}
 		this.api.deletarGasto(id).subscribe()
 		this.sair()
 	}

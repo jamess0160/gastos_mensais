@@ -14,11 +14,14 @@
             ↩
         </div>
         <div class="titulo">Novo Gasto </div>
-        <form (submit)="this.criar($event)">
-            <input name="data" type="number" placeholder="Dia do gasto" autocomplete="off">
-            <input name="gasto" type="text" placeholder="Descrição" autocomplete="off">
-            <input name="valor" type="number" step="0.01" placeholder="Valor" autocomplete="off">
-            <select name="tipo">
+        <form>
+            <input name="data" [(ngModel)]="formularioCriar.data" type="number" placeholder="Dia do gasto"
+                autocomplete="off">
+            <input name="gasto" [(ngModel)]="formularioCriar.descricao" type="text" placeholder="Descrição"
+                autocomplete="off">
+            <input name="valor" [(ngModel)]="formularioCriar.preco" type="number" step="0.01" placeholder="Valor"
+                autocomplete="off">
+            <select name="tipo" [(ngModel)]="formularioCriar.tipo">
                 <option selected disabled value="0">Selecione o destino</option>
                 <option value="1">Geral</option>
                 <option value="2">Inter Geral</option>
@@ -28,7 +31,7 @@
                 <option value="6">Inter Alimentação</option>
                 <option value="7">Nubank Alimentação</option>
             </select>
-            <button type="submit" class="enviar">Enviar</button>
+            <button (click)="this.criar()" class="enviar">Enviar</button>
         </form>
     </div>
     <div id="editar">
@@ -36,11 +39,13 @@
             ↩
         </div>
         <div class="titulo">Editar Gasto</div>
-        <form (submit)="this.editar($event)">
-            <input value="{{dadosEditar?.data}}" name="data" type="number" placeholder="Data" autocomplete="off">
-            <input value="{{dadosEditar?.descricao}}" name="gasto" type="text" placeholder="Descrição" autocomplete="off">
-            <input value="{{dadosEditar?.preco}}" name="valor" type="number" step="0.01" placeholder="Valor" autocomplete="off">
-            <select value="{{dadosEditar?.tipo}}" name="tipo">
+        <form>
+            <input name="data" [(ngModel)]="formularioEditar.data" type="number" placeholder="Data" autocomplete="off">
+            <input name="gasto" [(ngModel)]="formularioEditar.descricao" type="text" placeholder="Descrição"
+                autocomplete="off">
+            <input name="valor" [(ngModel)]="formularioEditar.preco" type="number" step="0.01" placeholder="Valor"
+                autocomplete="off">
+            <select name="tipo" [(ngModel)]="formularioEditar.tipo">
                 <option selected disabled value="0">Selecione o destino</option>
                 <option value="1">Geral</option>
                 <option value="2">Inter Geral</option>
@@ -50,7 +55,7 @@
                 <option value="6">Inter Alimentação</option>
                 <option value="7">Nubank Alimentação</option>
             </select>
-            <button type="submit" class="enviar">Enviar</button>
+            <button (click)="this.editar()" class="enviar">Enviar</button>
         </form>
     </div>
     <div id="deletar">
@@ -58,7 +63,9 @@
             ↩
         </div>
         <div class="titulo">Deletar Gasto</div>
-        <button (click)="this.deletar()" class="enviar">Deletar</button>
-
+        <p>Você tem certeza que deseja deletar esse gasto?</p>
+        <div class="botao">
+            <button (click)="this.deletar()" class="enviar">Deletar</button>
+        </div>
     </div>
 </dialog>
