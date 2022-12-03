@@ -6,10 +6,10 @@ export type registro = {
 }
 
 export type formRegistro = {
-    data: number,
-    descricao: string,
-    preco: GLfloat,
-    tipo: number
+    data?: number,
+    descricao?: string,
+    preco?: GLfloat,
+    tipo?: number
 }
 
 export type dadosTabelas = {
