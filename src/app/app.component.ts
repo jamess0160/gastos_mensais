@@ -48,10 +48,10 @@ export class AppComponent implements OnInit {
 		return {
 			geral: dadosGerais,
 			interGerais: dados.filter((item) => item.tipo == 2),
-			nubankGerais: dados.filter((item) => item.tipo == 3),
 			interTransporte: dados.filter((item) => item.tipo == 4),
-			nubankTransporte: dados.filter((item) => item.tipo == 5),
 			interAlimentacao: dados.filter((item) => item.tipo == 6),
+			nubankGerais: dados.filter((item) => item.tipo == 3),
+			nubankTransporte: dados.filter((item) => item.tipo == 5),
 			nubankAlimentacao: dados.filter((item) => item.tipo == 7)
 		}
 	}
