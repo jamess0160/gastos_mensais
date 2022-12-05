@@ -39,8 +39,8 @@ export class TabelaComponent implements OnInit {
 		}
 
 		this.idSelecionado = memoria.getMemoria("idSelecionado")
-		this.registros = this.dados.length > 12 ? this.dados : this.arrumarRegistros(this.dados)
-		this.scroll = this.dados.length > 12
+		this.registros = this.dados.length > 11 ? this.dados : this.arrumarRegistros(this.dados)
+		this.scroll = this.dados.length > 11
 		let precos = this.registros.map((item) => {
 			if (item.descricao.includes("*")) {
 				return 0
