@@ -66,10 +66,11 @@ export class FomularioCriacaoComponent implements OnInit {
 			return
 		}
 		let item = await this.api.pegarItem(id)
-		if (item.descricao.includes("-")) {
+		if (item.descricao.includes(" - ")) {
 			var [data, descricao] = item.descricao.split(" - ")
 		} else {
 			var descricao = item.descricao
+			var data = ""
 		}
 
 		this.formularioEditar = {
