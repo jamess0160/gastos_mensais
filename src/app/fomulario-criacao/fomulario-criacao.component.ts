@@ -13,8 +13,8 @@ var classe: any;
 
 export class FomularioCriacaoComponent implements OnInit {
 
-	formularioCriar: formRegistro = { tipo: 0 }
-	formularioEditar: formRegistro = { tipo: 0 }
+	formularioCriar: formRegistro = { data: new Date().getDate(), tipo: 0 }
+	formularioEditar: formRegistro = { data: new Date().getDate(), tipo: 0 }
 
 	constructor(private api: ApiService) { }
 
@@ -103,7 +103,7 @@ export class FomularioCriacaoComponent implements OnInit {
 			preco: preco,
 			tipo: tipo
 		}).subscribe()
-		this.formularioCriar = { tipo: 0 }
+		this.formularioCriar = { data: new Date().getDate(), tipo: 0 }
 	}
 
 	editar() {
