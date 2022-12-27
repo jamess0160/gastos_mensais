@@ -46,25 +46,28 @@ export class FomularioCriacaoComponent implements OnInit {
 		divs.forEach((div: any, index: number) => index == 0 ? div.style.display = 'flex' : div.style.display = 'none')
 	}
 
-	navegar(chave: string) {
+	async navegar(chave: string) {
 		let inicio: HTMLDivElement | null = document.querySelector("#inicio")
 		if (!inicio) {
 			return
 		}
+
+		if (chave == "#editar" && !await this.carregarEdicao()) {
+			return
+		}
+
 		inicio.style.display = 'none'
 		let destino: any = document.querySelector(chave)
 		destino.style.display = "flex"
-
-		if (chave == "#editar") {
-			this.carregarEdicao()
-		}
 	}
 
 	async carregarEdicao() {
 		let id = memoria.getMemoria("idSelecionado")
 		if (!id) {
-			return
+			alert("Selecione uma linha para continuar")
+			return false
 		}
+
 		let item = await this.api.pegarItem(id)
 		if (item.descricao.includes(" - ")) {
 			var [data, descricao] = item.descricao.split(" - ")
@@ -79,6 +82,8 @@ export class FomularioCriacaoComponent implements OnInit {
 			preco: item.preco,
 			tipo: item.tipo
 		}
+
+		return true
 	}
 
 	voltar(event: Event) {
@@ -103,14 +108,10 @@ export class FomularioCriacaoComponent implements OnInit {
 			preco: preco,
 			tipo: tipo
 		}).subscribe()
-		this.formularioCriar = { data: new Date().getDate(), tipo: 0 }
 	}
 
 	editar() {
 		let id: number = memoria.getMemoria("idSelecionado")
-		if (!id) {
-			return alert("Nenhuma linha selecionada")
-		}
 
 		let { data, descricao, preco, tipo } = this.formularioEditar
 
@@ -134,5 +135,10 @@ export class FomularioCriacaoComponent implements OnInit {
 		}
 		this.api.deletarGasto(id).subscribe()
 		this.sair()
+	}
+
+	limpar() {
+		this.formularioEditar = {tipo: 0}
+		this.formularioCriar = {tipo: 0}
 	}
 }

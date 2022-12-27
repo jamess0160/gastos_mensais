@@ -31,7 +31,10 @@
                 <option value="6">Inter Alimentação</option>
                 <option value="7">Nubank Alimentação</option>
             </select>
-            <button (click)="this.criar()" class="enviar">Enviar</button>
+            <div class="botoes">
+                <button (click)="this.criar()" class="enviar">Enviar</button>
+                <button (click)="this.limpar()">Limpar</button>
+            </div>
         </form>
     </div>
     <div id="editar">
@@ -55,7 +58,10 @@
                 <option value="6">Inter Alimentação</option>
                 <option value="7">Nubank Alimentação</option>
             </select>
-            <button (click)="this.editar()" class="enviar">Enviar</button>
+            <div class="botoes">
+                <button (click)="this.editar()" class="enviar">Enviar</button>
+                <button (click)="this.limpar()">Limpar</button>
+            </div>
         </form>
     </div>
     <div id="deletar">

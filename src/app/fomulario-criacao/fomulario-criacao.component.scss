@@ -65,10 +65,29 @@ form {
     input::placeholder {
         color: rgb(56, 56, 56);
     }
+
+    .botoes {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .enviar {
+            background-color: #04e8a8;
+
+        }
+
+        .enviar:hover {
+            background-color: #1e5545;
+        }
+
+        button {
+            width: 45%;
+        }
+    }
 }
 
 .enviar {
-    width: 75%;
+    width: 50%;
 }
 
 #inicio {
