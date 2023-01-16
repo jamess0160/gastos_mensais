@@ -76,7 +76,7 @@ export class TabelaComponent implements OnInit {
 	}
 
 	clicarLinha(evento: any) {
-		let linha: HTMLTableRowElement = evento.path[2]
+		let linha: HTMLTableRowElement = evento.target.parentElement.parentElement
 
 		let idAtual = linha.dataset["id"]
 		if (!idAtual) {
